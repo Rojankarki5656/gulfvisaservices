@@ -7,10 +7,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { MapPin, DollarSign, Users, Building, Search, Filter, Eye, Briefcase, GraduationCap, Calendar } from "lucide-react"
+import { MapPin, DollarSign, Users, Building, Search, Filter, Eye, Briefcase, GraduationCap, Calendar, CheckCircle, Send } from "lucide-react"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { supabase } from "@/lib/supabase"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { motion, AnimatePresence } from "framer-motion"
 
 interface Job {
   id: string
@@ -30,6 +34,14 @@ interface Job {
   description: string
 }
 
+interface FormData {
+  name: string
+  email: string
+  phone: string
+  message: string
+  jobId: string
+}
+
 export default function AvailableJobsPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCountry, setSelectedCountry] = useState("all")
@@ -37,8 +49,19 @@ export default function AvailableJobsPage() {
   const [jobs, setJobs] = useState<Job[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isFormOpen, setIsFormOpen] = useState(false)
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null)
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    jobId: "",
+  })
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
-  // Fetch jobs from Supabase
   // Fetch jobs from Supabase
   useEffect(() => {
     const fetchJobs = async () => {
@@ -47,17 +70,16 @@ export default function AvailableJobsPage() {
         const { data, error } = await supabase
           .from('jobs_job')
           .select('*')
-
+        
         if (error) {
           throw new Error(error.message)
         }
-        // Transform JSONB data to match interface
         const transformedData = data?.map(job => ({
           ...job,
           requirements: { items: job.requirements?.items || [] },
           benefits: { items: job.benefits?.items || [] }
         })) || [];
-        setJobs(transformedData);
+        setJobs(transformedData)
       } catch (err: any) {
         console.error("Error fetching jobs:", err.message)
         setError("Failed to load jobs. Please try again later.")
@@ -84,6 +106,63 @@ export default function AvailableJobsPage() {
   // Get unique countries and categories
   const countries = Array.from(new Set(jobs.map((job) => job.country)))
   const categories = Array.from(new Set(jobs.map((job) => job.category)))
+
+  // Handle form input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target
+    setFormData(prev => ({ ...prev, [id]: value }))
+  }
+
+  // Validate form
+  const validateForm = () => {
+    const errors: Record<string, string> = {}
+    if (!formData.name.trim()) errors.name = "Name is required"
+    if (!formData.email.trim()) errors.email = "Email is required"
+    else if (!/^\S+@\S+\.\S+$/.test(formData.email)) errors.email = "Email is invalid"
+    if (!formData.phone.trim()) errors.phone = "Phone number is required"
+    else if (!/^\+?[1-9]\d{1,14}$/.test(formData.phone)) errors.phone = "Phone number is invalid"
+    if (!formData.jobId) errors.message = "Please select a job to apply for"
+    return errors
+  }
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    const errors = validateForm()
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors)
+      return
+    }
+
+    setIsSubmitting(true)
+    try {
+      const { error } = await supabase.from('applications').insert({
+        job_id: formData.jobId,
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        created_at: new Date().toISOString()
+      })
+
+      if (error) throw error
+      setIsSubmitted(true)
+      setFormErrors({})
+      setFormData({ name: "", email: "", phone: "", message: "", jobId: "" })
+    } catch (err: any) {
+      console.error("Error submitting application:", err.message)
+      setError("Failed to submit application. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  // Handle new application
+  const handleNewApplication = () => {
+    setIsSubmitted(false)
+    setFormData({ name: "", email: "", phone: "", message: "", jobId: "" })
+    setFormErrors({})
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -267,7 +346,7 @@ export default function AvailableJobsPage() {
                         <div className="space-y-2 text-sm text-gray-600">
                           <div className="flex justify-between">
                             <span>Positions Available:</span>
-                            <span className="font-medium">{job.positions}</span>
+                            <span className="font-medium">{job.positions || 'Not specified'}</span>
                           </div>
                           <div className="flex justify-between">
                             <span>Experience Required:</span>
@@ -308,6 +387,11 @@ export default function AvailableJobsPage() {
                       <Button
                         variant="outline"
                         className="flex-1 hover:bg-pageBlue-50 transform hover:scale-105 transition-all duration-300"
+                        onClick={() => {
+                          setSelectedJob(job)
+                          setFormData(prev => ({ ...prev, jobId: job.id }))
+                          setIsFormOpen(true)
+                        }}
                       >
                         Apply Now
                       </Button>
@@ -329,6 +413,142 @@ export default function AvailableJobsPage() {
           )}
         </div>
       </section>
+
+      {/* Application Form Modal */}
+      <AnimatePresence>
+        {isFormOpen && (
+          <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
+            <DialogContent className="sm:max-w-[425px]">
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 50 }}
+                transition={{ duration: 0.3 }}
+              >
+                <DialogHeader>
+                  <DialogTitle className="text-2xl font-bold text-pageBlue-600">
+                    Apply for Work
+                  </DialogTitle>
+                </DialogHeader>
+                {isSubmitted ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-center py-8"
+                  >
+                    <CheckCircle className="h-16 w-16 text-green-600 dark:text-green-400 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                      Application Sent Successfully!
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      Thank you for your application. Our team will review it and get back to you soon.
+                    </p>
+                    <Button
+                      className="mt-4 bg-pageBlue-600 hover:bg-pageBlue-700 transform hover:scale-105 transition-all duration-300"
+                      onClick={handleNewApplication}
+                    >
+                      Submit Another Application
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="mt-2"
+                      onClick={() => setIsFormOpen(false)}
+                    >
+                      Close
+                    </Button>
+                  </motion.div>
+                ) : (
+                  <>
+                    <div className="text-center py-4">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                        Interested in a Job?
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-300 mb-4">
+                        Fill out the form below to apply for {selectedJob?.title} at {selectedJob?.company}.
+                      </p>
+                    </div>
+                    <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                      {formErrors.message && (
+                        <div className="text-red-600 dark:text-red-400 text-sm">
+                          {formErrors.message}
+                        </div>
+                      )}
+                      <div>
+                        <Label htmlFor="name">Full Name</Label>
+                        <Input
+                          id="name"
+                          placeholder="Enter your full name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                        />
+                        {formErrors.name && (
+                          <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                            {formErrors.name}
+                          </p>
+                        )}
+                      </div>
+                      <div>
+                        <Label htmlFor="email">Email</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="Enter your email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                        />
+                        {formErrors.email && (
+                          <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                            {formErrors.email}
+                          </p>
+                        )}
+                      </div>
+                      <div>
+                        <Label htmlFor="phone">Phone Number</Label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          placeholder="Enter your phone number"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                        />
+                        {formErrors.phone && (
+                          <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                            {formErrors.phone}
+                          </p>
+                        )}
+                      </div>
+                      <div>
+                        <Label htmlFor="message">Message</Label>
+                        <Textarea
+                          id="message"
+                          placeholder="Tell us about your visa needs"
+                          value={formData.message}
+                          onChange={handleInputChange}
+                        />
+                      </div>
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full bg-pageBlue-600 hover:bg-pageBlue-700 transform hover:scale-105 transition-all duration-300 text-white"
+                      >
+                        {isSubmitting ? (
+                          "Sending..."
+                        ) : (
+                          <>
+                            <Send className="mr-2 h-4 w-4" />
+                            Submit Application
+                          </>
+                        )}
+                      </Button>
+                    </form>
+                  </>
+                )}
+              </motion.div>
+            </DialogContent>
+          </Dialog>
+        )}
+      </AnimatePresence>
 
       {/* CTA Section */}
       <section className="py-20 px-4 bg-gradient-to-r from-pageBlue-600 to-pageBlue-800 text-white">
