@@ -24,8 +24,8 @@ interface Job {
   category: string
   experience: string
   type: string
-  requirements: string[]
-  benefits: string[]
+  requirements: { items: string[] }
+  benefits: { items: string[] }
   deadline: string
   description: string
 }
@@ -39,6 +39,7 @@ export default function AvailableJobsPage() {
   const [error, setError] = useState<string | null>(null)
 
   // Fetch jobs from Supabase
+  // Fetch jobs from Supabase
   useEffect(() => {
     const fetchJobs = async () => {
       try {
@@ -46,11 +47,17 @@ export default function AvailableJobsPage() {
         const { data, error } = await supabase
           .from('jobs_job')
           .select('*')
-        
+
         if (error) {
           throw new Error(error.message)
         }
-        setJobs(data || [])
+        // Transform JSONB data to match interface
+        const transformedData = data?.map(job => ({
+          ...job,
+          requirements: { items: job.requirements?.items || [] },
+          benefits: { items: job.benefits?.items || [] }
+        })) || [];
+        setJobs(transformedData);
       } catch (err: any) {
         console.error("Error fetching jobs:", err.message)
         setError("Failed to load jobs. Please try again later.")
@@ -67,7 +74,7 @@ export default function AvailableJobsPage() {
     const matchesSearch =
       job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       job.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      job.city.toLowerCase().includes(searchTerm.toLowerCase())
+      (job.city && job.city.toLowerCase().includes(searchTerm.toLowerCase()))
     const matchesCountry = selectedCountry === "all" || job.country === selectedCountry
     const matchesCategory = selectedCategory === "all" || job.category === selectedCategory
 
@@ -223,7 +230,7 @@ export default function AvailableJobsPage() {
                             <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
                               <span className="flex items-center gap-1">
                                 <MapPin className="h-4 w-4" />
-                                {job.city}, {job.country}
+                                {job.city ? `${job.city}, ${job.country}` : job.country}
                               </span>
                               <span className="flex items-center gap-1">
                                 <Calendar className="h-4 w-4" />
@@ -242,7 +249,7 @@ export default function AvailableJobsPage() {
                           {job.category}
                         </Badge>
                         <div className="text-right">
-                          <div className="text-2xl font-bold text-green-600">{job.salary}</div>
+                          <div className="text-2xl font-bold text-green-600">{job.salary} {job.currency || ''}</div>
                           <div className="text-sm text-gray-500">per month</div>
                         </div>
                       </div>
@@ -279,14 +286,14 @@ export default function AvailableJobsPage() {
                           Benefits
                         </h4>
                         <div className="flex flex-wrap gap-1">
-                          {job.benefits.slice(0, 3).map((benefit, index) => (
+                          {job.benefits.items.slice(0, 3).map((benefit, index) => (
                             <Badge key={index} variant="outline" className="text-xs">
                               {benefit}
                             </Badge>
                           ))}
-                          {job.benefits.length > 3 && (
+                          {job.benefits.items.length > 3 && (
                             <Badge variant="outline" className="text-xs">
-                              +{job.benefits.length - 3} more
+                              +{job.benefits.items.length - 3} more
                             </Badge>
                           )}
                         </div>
