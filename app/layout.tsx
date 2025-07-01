@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://gulfvisaservice.com'), // ✅ Required for OG image resolution
   title: 'Gulf Visa Services | UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman - Fast & Trusted Visa Assistance',
   description:
     'Get fast, reliable visa services for Gulf countries including UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, and Oman. Apply online for job visas, work permits, and renewals. Trusted Gulf visa agency from Nepal to Gulf.',
@@ -14,15 +15,23 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://gulfvisaservice.com',
+    siteName: 'Gulf Visa Services',
     images: [
       {
-        url: '/logoWeb.jpg',
+        url: 'https://gulfvisaservice.com/logoWeb.jpg',
         width: 1200,
         height: 630,
         alt: 'Gulf Visa Services Logo',
         type: 'image/png',
       },
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Gulf Visa Services | Apply for UAE, Qatar, Saudi Arabia & More',
+    description:
+      'Fast & reliable visa support for Gulf countries. Apply online for job permits in UAE, Qatar, Saudi Arabia, Oman, Bahrain & Kuwait. 100% trusted from Nepal.',
+    images: ['https://gulfvisaservice.com/logoWeb.jpg'],
   },
   icons: {
     icon: [
@@ -45,8 +54,6 @@ export const metadata: Metadata = {
   },
 }
 
-
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -59,4 +66,3 @@ export default function RootLayout({
     </html>
   )
 }
-

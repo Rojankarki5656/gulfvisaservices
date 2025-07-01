@@ -14,6 +14,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { motion, AnimatePresence } from "framer-motion"
+import Head from "next/head"
+
+
 
 interface Job {
   id: string
@@ -166,6 +169,28 @@ export default function AvailableJobsPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Head>
+            <title>Gulf Jobs 2025 | Apply for UAE, Saudi Arabia, Qatar, Oman, Kuwait, Bahrain Job Vacancies</title>
+
+            <meta name="description" content="Search and apply for the latest Gulf job vacancies in UAE, Qatar, Saudi Arabia, Kuwait, Oman, and Bahrain. Verified employers, visa assistance, and top salaries in 2025. Apply now!" />
+
+            <meta name="keywords" content="Gulf Jobs 2025, UAE Jobs, Qatar Jobs, Saudi Arabia Jobs, Oman Jobs, Kuwait Jobs, Bahrain Jobs, Gulf Country Vacancies, Work Visa Jobs, Middle East Employment, Oil and Gas Jobs Gulf, Construction Jobs UAE, Hospitality Jobs Gulf, Nepali Workers Gulf, Gulf Visa Services" />
+
+            <meta property="og:title" content="Gulf Jobs 2025 | Latest Job Vacancies in UAE, Saudi Arabia, Qatar, Oman" />
+            <meta property="og:description" content="Explore 1000+ verified Gulf job opportunities for Nepali and international workers. Find jobs in construction, hospitality, and more with visa sponsorship." />
+            <meta property="og:image" content="https://gulfvisaservice.com/images/gulf-jobs-banner.jpg" />
+            <meta property="og:url" content="https://yourdomain.com/jobs" />
+            <meta property="og:type" content="website" />
+
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content="Top Gulf Country Job Vacancies 2025 – Apply from Nepal & Abroad" />
+            <meta name="twitter:description" content="Get hired in UAE, Qatar, Oman, Bahrain, Kuwait & Saudi. Real job openings with top companies in Gulf. Apply online with your CV." />
+            <meta name="twitter:image" content="https://gulfvisaservice.com/images/gulf-jobs-twitter-card.jpg" />
+
+            <link rel="canonical" href="https://gulfvisaservice.com/jobs" />
+            <meta name="robots" content="index, follow" />
+      </Head>
+          
       <Header />
 
       {/* Hero Section with page blue color */}

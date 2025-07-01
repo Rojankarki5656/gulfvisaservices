@@ -215,9 +215,10 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-500">
             <Button
               size="lg"
+              onClick={() => window.location.href = "/jobs"}
               className="bg-white hover:bg-gray-100 text-homeBlue-600 font-semibold transform hover:scale-105 transition-all duration-300"
             >
-              Our Services
+              Apply Now
             </Button>
             <Button
               size="lg"
