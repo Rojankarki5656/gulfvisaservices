@@ -170,19 +170,6 @@ export function Header() {
               <Phone className="h-4 w-4" />
               <span>+977 9764367481</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Mail className="h-4 w-4" />
-              <span>info@gulfvisaservices.com</span>
-            </div>
-            <a
-              href="https://www.tiktok.com/@besthrmanpower?_t=ZS-8xf2tAbaLbQ&_r=1"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="TikTok"
-              className="flex items-center"
-            >
-              <SiTiktok className="h-5 w-5 text-white hover:text-pink-500 transition-colors duration-200" />
-            </a>
           </div>
         </div>
       </div>

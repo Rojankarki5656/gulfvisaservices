@@ -15,6 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { MapPin, DollarSign, Building, Search, Filter, Eye, Briefcase, GraduationCap, Calendar, CheckCircle, Send } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 import { motion, AnimatePresence } from "framer-motion"
+import { SiTiktok } from "react-icons/si"
 
 
 interface Job {
@@ -227,6 +228,16 @@ export default function HomePage() {
             >
               <FaWhatsapp className="h-5 w-5" />
               <span>WhatsApp</span>
+              <ArrowRight className="h-5 w-5" />
+            </Button>
+
+            <Button
+              size="lg"
+              onClick={() => window.open("https://www.tiktok.com/@besthrmanpower?_t=ZS-8xf2tAbaLbQ&_r=1", "_blank")}
+              className="bg-black hover:bg-gray-800 text-white font-semibold flex items-center space-x-2 transform hover:scale-105 transition-all duration-300"
+            >
+              <SiTiktok className="h-5 w-5" />
+              <span>Tiktok</span>
               <ArrowRight className="h-5 w-5" />
             </Button>
           </div>
