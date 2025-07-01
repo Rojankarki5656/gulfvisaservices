@@ -12,6 +12,7 @@ import { Menu, Phone, Mail, CheckCircle, Send } from "lucide-react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { supabase } from "@/lib/supabase"
+import { SiTiktok } from "react-icons/si";
 
 interface Job {
   id: string
@@ -173,6 +174,15 @@ export function Header() {
               <Mail className="h-4 w-4" />
               <span>info@gulfvisaservices.com</span>
             </div>
+            <a
+              href="https://www.tiktok.com/@besthrmanpower?_t=ZS-8xf2tAbaLbQ&_r=1"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TikTok"
+              className="flex items-center"
+            >
+              <SiTiktok className="h-5 w-5 text-white hover:text-pink-500 transition-colors duration-200" />
+            </a>
           </div>
         </div>
       </div>
