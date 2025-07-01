@@ -170,25 +170,106 @@ export default function AvailableJobsPage() {
   return (
     <div className="min-h-screen bg-white">
       <Head>
-            <title>Gulf Jobs 2025 | Apply for UAE, Saudi Arabia, Qatar, Oman, Kuwait, Bahrain Job Vacancies</title>
-
-            <meta name="description" content="Search and apply for the latest Gulf job vacancies in UAE, Qatar, Saudi Arabia, Kuwait, Oman, and Bahrain. Verified employers, visa assistance, and top salaries in 2025. Apply now!" />
-
-            <meta name="keywords" content="Gulf Jobs 2025, UAE Jobs, Qatar Jobs, Saudi Arabia Jobs, Oman Jobs, Kuwait Jobs, Bahrain Jobs, Gulf Country Vacancies, Work Visa Jobs, Middle East Employment, Oil and Gas Jobs Gulf, Construction Jobs UAE, Hospitality Jobs Gulf, Nepali Workers Gulf, Gulf Visa Services" />
-
-            <meta property="og:title" content="Gulf Jobs 2025 | Latest Job Vacancies in UAE, Saudi Arabia, Qatar, Oman" />
-            <meta property="og:description" content="Explore 1000+ verified Gulf job opportunities for Nepali and international workers. Find jobs in construction, hospitality, and more with visa sponsorship." />
-            <meta property="og:image" content="https://gulfvisaservice.com/images/gulf-jobs-banner.jpg" />
-            <meta property="og:url" content="https://yourdomain.com/jobs" />
-            <meta property="og:type" content="website" />
-
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content="Top Gulf Country Job Vacancies 2025 – Apply from Nepal & Abroad" />
-            <meta name="twitter:description" content="Get hired in UAE, Qatar, Oman, Bahrain, Kuwait & Saudi. Real job openings with top companies in Gulf. Apply online with your CV." />
-            <meta name="twitter:image" content="https://gulfvisaservice.com/images/gulf-jobs-twitter-card.jpg" />
-
-            <link rel="canonical" href="https://gulfvisaservice.com/jobs" />
-            <meta name="robots" content="index, follow" />
+        <title>Search Gulf Jobs 2025 | UAE, Saudi Arabia, Qatar, Oman, Kuwait, Bahrain Vacancies</title>
+        <meta name="description" content="Search thousands of verified Gulf job vacancies in UAE, Saudi Arabia, Qatar, Oman, Kuwait, and Bahrain for 2025. Find jobs in oil & gas, construction, hospitality, and more with visa sponsorship. Apply now!" />
+        <meta name="keywords" content="Gulf Jobs 2025, search Gulf job vacancies, UAE job search, Qatar job vacancies, Saudi Arabia jobs, Oman jobs, Kuwait jobs, Bahrain jobs, Middle East job opportunities, work visa jobs, oil and gas jobs Gulf, construction jobs UAE, hospitality jobs Gulf, Nepali workers Gulf, Gulf visa services, job search Gulf countries, overseas employment, international jobs 2025" />
+        <meta name="author" content="Gulf Visa Service" />
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+        <meta name="geo.region" content="AE;SA;QA;OM;KW;BH" />
+        <meta name="geo.placename" content="Gulf Countries" />
+        <meta property="og:title" content="Search Gulf Jobs 2025 | Latest Vacancies in UAE, Saudi Arabia, Qatar, Oman" />
+        <meta property="og:description" content="Explore 1000+ verified Gulf job opportunities for Nepali and international workers. Search jobs in construction, hospitality, oil & gas, and more with visa sponsorship in UAE, Qatar, and other Gulf countries." />
+        <meta property="og:image" content="https://gulfvisaservice.com/images/gulf-jobs-banner.jpg" />
+        <meta property="og:image:secure_url" content="https://gulfvisaservice.com/images/gulf-jobs-banner.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Gulf job vacancies 2025 banner" />
+        <meta property="og:url" content="https://gulfvisaservice.com/jobs" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Gulf Visa Service" />
+        <meta property="og:locale" content="en_US" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Search Gulf Country Job Vacancies 2025 – UAE, Qatar, Saudi Arabia, Oman" />
+        <meta name="twitter:description" content="Find and apply for real job openings in UAE, Qatar, Oman, Bahrain, Kuwait, and Saudi Arabia. Top companies, visa support, and competitive salaries." />
+        <meta name="twitter:image" content="https://gulfvisaservice.com/images/gulf-jobs-twitter-card.jpg" />
+        <meta name="twitter:site" content="@GulfVisaService" />
+        <link rel="canonical" href="https://gulfvisaservice.com/jobs" />
+        <link rel="sitemap" href="https://gulfvisaservice.com/sitemap.xml" type="application/xml" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="preload" href="https://gulfvisaservice.com/images/gulf-jobs-banner.jpg" as="image" />
+        <link rel="dns-prefetch" href="https://gulfvisaservice.com" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Gulf Visa Service",
+            "url": "https://gulfvisaservice.com",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://gulfvisaservice.com/jobs?search={search_term_string}",
+              "query-input": "required name=search_term_string"
+            },
+            "description": "Search for the latest job vacancies in Gulf countries including UAE, Saudi Arabia, Qatar, Oman, Kuwait, and Bahrain for 2025."
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Gulf Visa Service",
+            "url": "https://gulfvisaservice.com",
+            "logo": "https://gulfvisaservice.com/images/logo.png",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+977-123-456-7890",
+              "contactType": "Customer Service",
+              "areaServed": ["NP", "AE", "SA", "QA", "OM", "KW", "BH"],
+              "availableLanguage": ["English", "Nepali", "Hindi", "Arabic"]
+            },
+            "sameAs": [
+              "https://www.facebook.com/BestDemandVisaService",
+              "https://www.twitter.com/GulfVisaService",
+              "https://www.linkedin.com/company/gulfvisaservice"
+            ]
+          })}
+        </script>
+        {jobs.map(job => (
+          <script key={job.id} type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "JobPosting",
+              "title": job.title,
+              "description": job.description,
+              "hiringOrganization": {
+                "@type": "Organization",
+                "name": job.company,
+                "sameAs": "https://gulfvisaservice.com"
+              },
+              "industry": job.category,
+              "employmentType": job.type,
+              "validThrough": job.deadline,
+              "jobLocation": {
+                "@type": "Place",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": job.city,
+                  "addressCountry": job.country
+                }
+              },
+              "baseSalary": {
+                "@type": "MonetaryAmount",
+                "currency": job.currency,
+                "value": {
+                  "@type": "QuantitativeValue",
+                  "value": parseFloat(job.salary.replace(/[^0-9.]/g, '')),
+                  "unitText": "MONTH"
+                }
+              },
+              "qualifications": job.requirements.items.join(", "),
+              "experienceRequirements": job.experience
+            })}
+          </script>
+        ))}
       </Head>
           
       <Header />
