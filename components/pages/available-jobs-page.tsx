@@ -69,6 +69,7 @@ export default function AvailableJobsPage() {
         const { data, error } = await supabase
           .from('jobs_job')
           .select('*')
+          .order('posteddate', { ascending: false });;
         
         if (error) {
           throw new Error(error.message)
@@ -379,7 +380,7 @@ export default function AvailableJobsPage() {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-3">
-                      <Button className="flex-1 bg-pageBlue-600 hover:bg-pageBlue-700 text-blue-700 transform hover:scale-105 transition-all duration-300">
+                      <Button className="flex-1 bg-pageBlue-600 hover:bg-pageBlue-700 text-blue-500 transform hover:scale-105 transition-all duration-300">
                         <Eye className="mr-2 h-4 w-4" />
                         View Details
                       </Button>

@@ -70,6 +70,7 @@ export default function HomePage() {
         const { data, error } = await supabase
           .from('jobs_job')
           .select('*')
+          .order('posteddate', { ascending: false }); // Order by posted date descending
 
         if (error) {
           throw new Error(error.message)
@@ -349,7 +350,7 @@ export default function HomePage() {
             </div>
           ) : (
             <div className="grid gap-8">
-              {filteredJobs.map((job, index) => (
+              {filteredJobs.slice(0, 5).map((job, index) => (
                 <Card
                   key={job.id}
                   className="hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 animate-slide-in-up"
@@ -463,6 +464,17 @@ export default function HomePage() {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          )}
+
+          {filteredJobs.length > 5 && !loading && !error && (
+            <div className="flex justify-center mt-8">
+              <Button
+                className="bg-pageBlue-600 hover:bg-pageBlue-700 text-white px-8 py-3 rounded-lg font-semibold"
+                onClick={() => window.location.href = "/jobs"}
+              >
+                See More Jobs
+              </Button>
             </div>
           )}
 
@@ -723,7 +735,7 @@ export default function HomePage() {
             <Button
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-homeBlue-600 transform hover:scale-105 transition-all duration-300"
+              className="border-white text-black hover:bg-white hover:text-homeBlue-600 transform hover:scale-105 transition-all duration-300"
             >
               Contact Us
             </Button>
