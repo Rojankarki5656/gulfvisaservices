@@ -139,25 +139,11 @@ export default function ContactPage() {
 
   const offices = [
     {
-      country: 'UAE',
-      city: 'Dubai',
-      address: 'Business Bay, Dubai, UAE',
-      phone: '+971 4 123 4567',
-      email: 'dubai@gulfvisaservices.com',
-    },
-    {
-      country: 'Saudi Arabia',
-      city: 'Riyadh',
-      address: 'King Fahd Road, Riyadh, KSA',
-      phone: '+966 11 234 5678',
-      email: 'riyadh@gulfvisaservices.com',
-    },
-    {
-      country: 'Qatar',
-      city: 'Doha',
-      address: 'West Bay, Doha, Qatar',
-      phone: '+974 4444 5555',
-      email: 'doha@gulfvisaservices.com',
+      country: '',
+      city: 'Kathmandu',
+      address: 'Lalitpur, Kupondole',
+      phone: '+977 9764367481',
+      email: 'gulfvisaservices.com',
     },
   ];
 
@@ -402,10 +388,10 @@ export default function ContactPage() {
               <div>
                 <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-6 flex items-center gap-2">
                   <Building className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                  Our Offices
+                  Our Office
                 </h2>
                 <p className="text-gray-500 dark:text-gray-300 mb-8">
-                  Visit our offices across the Gulf region for in-person consultation and assistance.
+                  Visit our office for in-person consultation and assistance.
                 </p>
               </div>
 
