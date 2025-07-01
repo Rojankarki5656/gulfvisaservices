@@ -24,7 +24,7 @@ interface FormData {
   name: string
   email: string
   phone: string
-  interested_jobs: string[]
+  job_id: string
   message: string
 }
 
@@ -38,7 +38,7 @@ export function Header() {
     name: "",
     email: "",
     phone: "",
-    interested_jobs: [],
+    job_id: "",
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -78,10 +78,9 @@ export function Header() {
   const handleJobSelection = (jobId: string) => {
     setFormData((prev) => ({
       ...prev,
-      interested_jobs: prev.interested_jobs.includes(jobId)
-        ? prev.interested_jobs.filter((id) => id !== jobId)
-        : [...prev.interested_jobs, jobId],
+      job_id: jobId,
     }))
+    setFormErrors((prev) => ({ ...prev, job_id: "" }))
   }
 
   const handleInputChange = (
@@ -89,7 +88,6 @@ export function Header() {
   ) => {
     const { id, value } = e.target
     setFormData((prev) => ({ ...prev, [id]: value }))
-    // Clear error for this field on change
     setFormErrors((prev) => ({ ...prev, [id]: "" }))
   }
 
@@ -102,9 +100,7 @@ export function Header() {
       errors.email = "Invalid email format"
     }
     if (!formData.phone.trim()) errors.phone = "Phone number is required"
-    if (formData.interested_jobs.length === 0) {
-      errors.interested_jobs = ["Please select at least one job"]
-    }
+    if (!formData.job_id) errors.job_id = "Please select a job"
     setFormErrors(errors)
     return Object.keys(errors).length === 0
   }
@@ -115,13 +111,12 @@ export function Header() {
 
     setIsSubmitting(true)
     try {
-      const { error } = await supabase.from("jobs_applications").insert({
+      const { error } = await supabase.from("applications").insert({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
-        interested_jobs: formData.interested_jobs,
+        job_id: formData.job_id,
         message: formData.message,
-        inquiry_type: "job_inquiry",
       })
 
       if (error) {
@@ -133,7 +128,7 @@ export function Header() {
         name: "",
         email: "",
         phone: "",
-        interested_jobs: [],
+        job_id: "",
         message: "",
       })
       setFormErrors({})
@@ -154,7 +149,7 @@ export function Header() {
       name: "",
       email: "",
       phone: "",
-      interested_jobs: [],
+      job_id: "",
       message: "",
     })
     setFormErrors({})
@@ -351,7 +346,7 @@ export function Header() {
                       </div>
                       <div className="space-y-2">
                         <Label className="text-gray-900 dark:text-gray-200">
-                          Interested Jobs
+                          Select Job
                         </Label>
                         {error ? (
                           <div className="text-red-600 dark:text-red-400">{error}</div>
@@ -364,42 +359,42 @@ export function Header() {
                             No jobs available
                           </div>
                         ) : (
-                          <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto border rounded-md p-3 border-gray-300 dark:border-gray-600">
+                          <div className="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto border rounded-md p-3 border-gray-300 dark:border-gray-600">
                             {jobs.map((job) => (
                               <label
                                 key={job.id}
                                 className="flex items-center space-x-2 cursor-pointer"
                               >
                                 <input
-                                  type="checkbox"
-                                  checked={formData.interested_jobs.includes(job.id)}
+                                  type="radio"
+                                  name="job_id"
+                                  checked={formData.job_id === job.id}
                                   onChange={() => handleJobSelection(job.id)}
-                                  className="rounded text-blue-600 dark:text-blue-400"
+                                  className="accent-blue-600"
                                 />
                                 <span className="text-sm text-gray-900 dark:text-gray-200">{`${job.title} - ${job.country}`}</span>
                               </label>
                             ))}
                           </div>
                         )}
-                        {formErrors.interested_jobs && (
+                        {formErrors.job_id && (
                           <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                            {formErrors.interested_jobs[0]}
+                            {formErrors.job_id}
                           </p>
                         )}
-                        {formData.interested_jobs.length > 0 && (
+                        {formData.job_id && (
                           <div className="flex flex-wrap gap-1 mt-2">
-                            {formData.interested_jobs.map((jobId) => {
-                              const job = jobs.find((j) => j.id === jobId)
-                              return (
+                            {(() => {
+                              const job = jobs.find((j) => j.id === formData.job_id)
+                              return job ? (
                                 <Badge
-                                  key={jobId}
                                   variant="secondary"
                                   className="text-xs bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-gray-100"
                                 >
-                                  {job ? `${job.title} - ${job.country}` : jobId}
+                                  {`${job.title} - ${job.country}`}
                                 </Badge>
-                              )
-                            })}
+                              ) : null
+                            })()}
                           </div>
                         )}
                       </div>
