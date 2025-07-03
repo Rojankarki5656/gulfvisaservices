@@ -16,7 +16,7 @@ import { MapPin, DollarSign, Building, Search, Filter, Eye, Briefcase, Graduatio
 import { Textarea } from "@/components/ui/textarea"
 import { motion, AnimatePresence } from "framer-motion"
 import { SiTiktok } from "react-icons/si"
-
+import Link from "next/link"
 
 interface Job {
   id: string
@@ -457,10 +457,15 @@ export default function HomePage() {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-3">
-                      <Button className="flex-1 bg-pageBlue-600 hover:bg-pageBlue-700 text-blue-700 transform hover:scale-105 transition-all duration-300">
-                        <Eye className="mr-2 h-4 w-4" />
-                        View Details
-                      </Button>
+                        <Button
+                          asChild
+                          className="flex-1 bg-pageBlue-600 hover:bg-pageBlue-700 text-white-500 transform hover:scale-105 transition-all duration-300"
+                        >
+                          <Link href={`/jobs/${job.id}`}>
+                            <Eye className="mr-2 h-4 w-4" />
+                            View Details
+                          </Link>
+                        </Button>
                       <Button
                         variant="outline"
                         className="flex-1 hover:bg-pageBlue-50 transform hover:scale-105 transition-all duration-300"

@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { MapPin, DollarSign, Users, Building, Search, Filter, Eye, Briefcase, GraduationCap, Calendar, CheckCircle, Send } from "lucide-react"
+import { MapPin, DollarSign, Users, Building, Search, Filter, Eye, Briefcase, GraduationCap, Calendar, CheckCircle, Send, ChevronLeft, ChevronRight } from "lucide-react"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { supabase } from "@/lib/supabase"
@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { motion, AnimatePresence } from "framer-motion"
 import Head from "next/head"
-
+import Link from "next/link"
 
 
 interface Job {
@@ -63,6 +63,8 @@ export default function AvailableJobsPage() {
   const [formErrors, setFormErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const jobsPerPage = 7
 
   // Fetch jobs from Supabase
   useEffect(() => {
@@ -105,6 +107,13 @@ export default function AvailableJobsPage() {
 
     return matchesSearch && matchesCountry && matchesCategory
   })
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredJobs.length / jobsPerPage)
+  const paginatedJobs = filteredJobs.slice(
+    (currentPage - 1) * jobsPerPage,
+    currentPage * jobsPerPage
+  )
 
   // Get unique countries and categories
   const countries = Array.from(new Set(jobs.map((job) => job.country)))
@@ -390,122 +399,162 @@ export default function AvailableJobsPage() {
               <p className="text-lg text-red-600">{error}</p>
             </div>
           ) : (
-            <div className="grid gap-8">
-              {filteredJobs.map((job, index) => (
-                <Card
-                  key={job.id}
-                  className="hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 animate-slide-in-up"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <CardHeader>
-                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                      <div className="flex-1">
-                        <div className="flex items-start gap-4">
-                          <div className="w-12 h-12 bg-pageBlue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <Briefcase className="h-6 w-6 text-pageBlue-600" />
-                          </div>
-                          <div className="flex-1">
-                            <CardTitle className="text-2xl text-pageBlue-600 hover:text-pageBlue-800 transition-colors">
-                              {job.title}
-                            </CardTitle>
-                            <CardDescription className="text-lg text-gray-700 mt-1">
-                              <Building className="inline h-4 w-4 mr-1" />
-                              {job.company}
-                            </CardDescription>
-                            <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
-                              <span className="flex items-center gap-1">
-                                <MapPin className="h-4 w-4" />
-                                {job.city ? `${job.city}, ${job.country}` : job.country}
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <Calendar className="h-4 w-4" />
-                                {job.type}
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <GraduationCap className="h-4 w-4" />
-                                {job.experience}
-                              </span>
+            <>
+              <div className="grid gap-8">
+                {paginatedJobs.map((job, index) => (
+                  <Card
+                    key={job.id}
+                    className="hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 animate-slide-in-up"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <CardHeader>
+                      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                        <div className="flex-1">
+                          <div className="flex items-start gap-4">
+                            <div className="w-12 h-12 bg-pageBlue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                              <Briefcase className="h-6 w-6 text-pageBlue-600" />
+                            </div>
+                            <div className="flex-1">
+                              <CardTitle className="text-2xl text-pageBlue-600 hover:text-pageBlue-800 transition-colors">
+                                {job.title}
+                              </CardTitle>
+                              <CardDescription className="text-lg text-gray-700 mt-1">
+                                <Building className="inline h-4 w-4 mr-1" />
+                                {job.company}
+                              </CardDescription>
+                              <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
+                                <span className="flex items-center gap-1">
+                                  <MapPin className="h-4 w-4" />
+                                  {job.city ? `${job.city}, ${job.country}` : job.country}
+                                </span>
+                                <span className="flex items-center gap-1">
+                                  <Calendar className="h-4 w-4" />
+                                  {job.type}
+                                </span>
+                                <span className="flex items-center gap-1">
+                                  <GraduationCap className="h-4 w-4" />
+                                  {job.experience}
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="flex flex-col items-end gap-2">
-                        <Badge variant="secondary" className="text-sm">
-                          {job.category}
-                        </Badge>
-                        <div className="text-right">
-                          <div className="text-2xl font-bold text-green-600">{job.salary} {job.currency || ''}</div>
-                          <div className="text-sm text-gray-500">per month</div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-base text-gray-600 mb-4">{job.description}</p>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                          <Users className="h-4 w-4 text-pageBlue-600" />
-                          Job Details
-                        </h4>
-                        <div className="space-y-2 text-sm text-gray-600">
-                          <div className="flex justify-between">
-                            <span>Positions Available:</span>
-                            <span className="font-medium">{job.positions || 'Not specified'}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Experience Required:</span>
-                            <span className="font-medium">{job.experience}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Application Deadline:</span>
-                            <span className="font-medium">{new Date(job.deadline).toLocaleDateString()}</span>
+                        <div className="flex flex-col items-end gap-2">
+                          <Badge variant="secondary" className="text-sm">
+                            {job.category}
+                          </Badge>
+                          <div className="text-right">
+                            <div className="text-2xl font-bold text-green-600">{job.salary} {job.currency || ''}</div>
+                            <div className="text-sm text-gray-500">per month</div>
                           </div>
                         </div>
                       </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-base text-gray-600 mb-4">{job.description}</p>
 
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                          <DollarSign className="h-4 w-4 text-green-600" />
-                          Benefits
-                        </h4>
-                        <div className="flex flex-wrap gap-1">
-                          {job.benefits.items.slice(0, 3).map((benefit, index) => (
-                            <Badge key={index} variant="outline" className="text-xs">
-                              {benefit}
-                            </Badge>
-                          ))}
-                          {job.benefits.items.length > 3 && (
-                            <Badge variant="outline" className="text-xs">
-                              +{job.benefits.items.length - 3} more
-                            </Badge>
-                          )}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                          <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                            <Users className="h-4 w-4 text-pageBlue-600" />
+                            Job Details
+                          </h4>
+                          <div className="space-y-2 text-sm text-gray-600">
+                            <div className="flex justify-between">
+                              <span>Positions Available:</span>
+                              <span className="font-medium">{job.positions || 'Not specified'}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Experience Required:</span>
+                              <span className="font-medium">{job.experience}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Application Deadline:</span>
+                              <span className="font-medium">{new Date(job.deadline).toLocaleDateString()}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div>
+                          <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                            <DollarSign className="h-4 w-4 text-green-600" />
+                            Benefits
+                          </h4>
+                          <div className="flex flex-wrap gap-1">
+                            {job.benefits.items.slice(0, 3).map((benefit, index) => (
+                              <Badge key={index} variant="outline" className="text-xs">
+                                {benefit}
+                              </Badge>
+                            ))}
+                            {job.benefits.items.length > 3 && (
+                              <Badge variant="outline" className="text-xs">
+                                +{job.benefits.items.length - 3} more
+                              </Badge>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <Button className="flex-1 bg-pageBlue-600 hover:bg-pageBlue-700 text-blue-500 transform hover:scale-105 transition-all duration-300">
-                        <Eye className="mr-2 h-4 w-4" />
-                        View Details
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="flex-1 hover:bg-pageBlue-50 transform hover:scale-105 transition-all duration-300"
-                        onClick={() => {
-                          setSelectedJob(job)
-                          setFormData(prev => ({ ...prev, jobId: job.id }))
-                          setIsFormOpen(true)
-                        }}
-                      >
-                        Apply Now
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <Button
+                          asChild
+                          className="flex-1 bg-pageBlue-600 hover:bg-pageBlue-700 text-white-500 transform hover:scale-105 transition-all duration-300"
+                        >
+                          <Link href={`/jobs/${job.id}`}>
+                            <Eye className="mr-2 h-4 w-4" />
+                            View Details
+                          </Link>
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className="flex-1 hover:bg-pageBlue-50 transform hover:scale-105 transition-all duration-300"
+                          onClick={() => {
+                            setSelectedJob(job)
+                            setFormData(prev => ({ ...prev, jobId: job.id }))
+                            setIsFormOpen(true)
+                          }}
+                        >
+                          Apply Now
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className="flex justify-center items-center gap-2 mt-10">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </Button>
+                  {Array.from({ length: totalPages }, (_, i) => (
+                    <Button
+                      key={i + 1}
+                      variant={currentPage === i + 1 ? "default" : "outline"}
+                      size="icon"
+                      className={currentPage === i + 1 ? "bg-pageBlue-600 text-white" : ""}
+                      onClick={() => setCurrentPage(i + 1)}
+                    >
+                      {i + 1}
+                    </Button>
+                  ))}
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    disabled={currentPage === totalPages}
+                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </Button>
+                </div>
+              )}
+            </>
           )}
 
           {filteredJobs.length === 0 && !loading && !error && (
