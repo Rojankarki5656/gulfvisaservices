@@ -52,6 +52,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://gulfvisaservice.com',
   },
+  verification: {
+    google: 'llqQ9C6BOnJ4W_lC-O4JmQXSAsIfFWY0Dy2gjfieBNQ',
+  },
 }
 
 export default function RootLayout({

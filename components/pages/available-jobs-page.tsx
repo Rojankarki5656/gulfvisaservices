@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -65,6 +65,7 @@ export default function AvailableJobsPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const jobsPerPage = 7
+  const jobsSectionRef = useRef<HTMLDivElement>(null)
 
   // Fetch jobs from Supabase
   useEffect(() => {
@@ -179,9 +180,9 @@ export default function AvailableJobsPage() {
   return (
     <div className="min-h-screen bg-white">
       <Head>
-        <title>Search Gulf Jobs 2025 | UAE, Saudi Arabia, Qatar, Oman, Kuwait, Bahrain Vacancies</title>
-        <meta name="description" content="Search thousands of verified Gulf job vacancies in UAE, Saudi Arabia, Qatar, Oman, Kuwait, and Bahrain for 2025. Find jobs in oil & gas, construction, hospitality, and more with visa sponsorship. Apply now!" />
-        <meta name="keywords" content="Gulf Jobs 2025, search Gulf job vacancies, UAE job search, Qatar job vacancies, Saudi Arabia jobs, Oman jobs, Kuwait jobs, Bahrain jobs, Middle East job opportunities, work visa jobs, oil and gas jobs Gulf, construction jobs UAE, hospitality jobs Gulf, Nepali workers Gulf, Gulf visa services, job search Gulf countries, overseas employment, international jobs 2025" />
+        <title>Gulf Jobs for Nepali 2025 | UAE, Qatar, Saudi Arabia, Oman, Kuwait, Bahrain - Latest Vacancies</title>
+        <meta name="description" content="Find the latest Gulf jobs for Nepali workers in 2025. Search and apply for verified job vacancies in UAE, Qatar, Saudi Arabia, Oman, Kuwait, and Bahrain. 100% trusted visa support and top companies hiring now!" />
+        <meta name="keywords" content="Gulf jobs for Nepali, Nepali jobs in UAE, Qatar jobs for Nepali, Saudi jobs for Nepali, Oman jobs for Nepali, Kuwait jobs for Nepali, Bahrain jobs for Nepali, Gulf job vacancies 2025, Nepali manpower, Gulf visa service, Nepali overseas jobs, Nepali abroad jobs, Nepali gulf jobs, Nepali job search, Nepali foreign employment" />
         <meta name="author" content="Gulf Visa Service" />
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
         <meta name="geo.region" content="AE;SA;QA;OM;KW;BH" />
@@ -278,7 +279,40 @@ export default function AvailableJobsPage() {
               "experienceRequirements": job.experience
             })}
           </script>
+          
         ))}
+        <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How can Nepali workers apply for Gulf jobs?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Simply search for your desired job, click 'Apply Now', and fill out the application form. Our team will guide you through the visa process."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are these Gulf jobs verified and legal?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, all jobs listed are verified and come with proper visa support for Nepali workers."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Which Gulf countries are hiring Nepali workers in 2025?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "UAE, Qatar, Saudi Arabia, Oman, Kuwait, and Bahrain are actively hiring Nepali workers for various sectors."
+              }
+            }
+          ]
+        })}
+      </script>
       </Head>
           
       <Header />
@@ -291,9 +325,9 @@ export default function AvailableJobsPage() {
               🔥 Hot Jobs Available Now
             </Badge>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-slide-in-left">
-              Find Your Dream Job in
-              <span className="block text-yellow-300 animate-slide-in-right">Gulf Countries</span>
+              Gulf Jobs for Nepali 2025 – UAE, Qatar, Saudi Arabia, Oman, Kuwait, Bahrain
             </h1>
+            <h2 className="text-2xl font-semibold mt-10 mb-4">Latest Gulf Job Vacancies for Nepali Workers</h2>
             <p className="text-xl md:text-2xl mb-8 text-pageBlue-100 max-w-4xl mx-auto animate-fade-in-up delay-300">
               Discover exciting career opportunities with visa sponsorship, competitive salaries, and excellent benefits
             </p>
@@ -301,6 +335,9 @@ export default function AvailableJobsPage() {
               <Button
                 size="lg"
                 className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold transform hover:scale-105 transition-all duration-300"
+                onClick={() => {
+                  jobsSectionRef.current?.scrollIntoView({ behavior: "smooth" })
+                }}
               >
                 <Search className="mr-2 h-5 w-5" />
                 Browse Jobs
@@ -379,7 +416,10 @@ export default function AvailableJobsPage() {
       </section>
 
       {/* Jobs Listing */}
-      <section className="py-20 px-4 bg-white">
+      <section
+        ref={jobsSectionRef}
+        className="py-20 px-4 bg-white"
+      >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 animate-fade-in-up">
