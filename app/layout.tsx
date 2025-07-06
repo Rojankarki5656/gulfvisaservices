@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://gulfvisaservice.com'), // ✅ Required for OG image resolution
+  metadataBase: new URL('https://gulfvisaservice.com'),
   title: 'Gulf Visa Services | UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman - Fast & Trusted Visa Assistance',
   description:
     'Get fast, reliable visa services for Gulf countries including UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, and Oman. Apply online for job visas, work permits, and renewals. Trusted Gulf visa agency from Nepal to Gulf.',
@@ -64,8 +64,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head />
-      <body className="min-h-screen bg-white text-black antialiased">{children}</body>
+      <head>
+        {/* Favicon for browsers and Google Search */}
+        <link rel="icon" href="/logoWeb.jpg" sizes="32x32" type="image/png" />
+        <link rel="icon" href="/logoWeb.jpg" sizes="16x16" type="image/png" />
+        {/* Apple Touch Icon */}
+        <link rel="apple-touch-icon" href="/logoWeb.jpg" sizes="180x180" type="image/png" />
+      </head>
+      <body className="min-h-screen bg-white text-black antialiased">
+        {children}
+      </body>
     </html>
   )
 }
