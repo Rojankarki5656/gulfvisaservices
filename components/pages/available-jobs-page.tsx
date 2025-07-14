@@ -76,7 +76,7 @@ export default function AvailableJobsPage() {
           .from('jobs_job')
           .select('*')
           .order('posteddate', { ascending: false });;
-        
+
         if (error) {
           throw new Error(error.message)
         }
@@ -180,9 +180,27 @@ export default function AvailableJobsPage() {
   return (
     <div className="min-h-screen bg-white">
       <Head>
-        <title>Gulf Jobs for Nepali 2025 | UAE, Qatar, Saudi Arabia, Oman, Kuwait, Bahrain - Latest Vacancies</title>
-        <meta name="description" content="Find the latest Gulf jobs for Nepali workers in 2025. Search and apply for verified job vacancies in UAE, Qatar, Saudi Arabia, Oman, Kuwait, and Bahrain. 100% trusted visa support and top companies hiring now!" />
-        <meta name="keywords" content="Gulf jobs for Nepali, Nepali jobs in UAE, Qatar jobs for Nepali, Saudi jobs for Nepali, Oman jobs for Nepali, Kuwait jobs for Nepali, Bahrain jobs for Nepali, Gulf job vacancies 2025, Nepali manpower, Gulf visa service, Nepali overseas jobs, Nepali abroad jobs, Nepali gulf jobs, Nepali job search, Nepali foreign employment" />
+        <title>
+          {searchTerm
+            ? `${searchTerm} Jobs in Gulf Countries | Gulf Jobs for Nepali 2025`
+            : "Gulf Jobs for Nepali 2025 | UAE, Qatar, Saudi Arabia, Oman, Kuwait, Bahrain - Latest Vacancies"}
+        </title>
+        <meta
+          name="description"
+          content={
+            searchTerm
+              ? `Find the latest ${searchTerm} jobs and other Gulf job vacancies for Nepali workers in 2025. Search and apply for verified job vacancies in UAE, Qatar, Saudi Arabia, Oman, Kuwait, and Bahrain.`
+              : "Find the latest Gulf jobs for Nepali workers in 2025. Search and apply for verified job vacancies in UAE, Qatar, Saudi Arabia, Oman, Kuwait, and Bahrain. 100% trusted visa support and top companies hiring now!"
+          }
+        />
+        <meta
+          name="keywords"
+          content={
+            searchTerm
+              ? `${searchTerm} jobs Gulf, ${searchTerm} jobs UAE, ${searchTerm} jobs Qatar, ${searchTerm} jobs Saudi Arabia, ${searchTerm} jobs Oman, ${searchTerm} jobs Kuwait, ${searchTerm} jobs Bahrain, Gulf jobs for Nepali, Nepali jobs in Gulf, Gulf job vacancies 2025, Nepali manpower`
+              : "Gulf jobs for Nepali, Nepali jobs in UAE, Qatar jobs for Nepali, Saudi jobs for Nepali, Oman jobs for Nepali, Kuwait jobs for Nepali, Bahrain jobs for Nepali, Gulf job vacancies 2025, Nepali manpower, Gulf visa service, Nepali overseas jobs, Nepali abroad jobs, Nepali gulf jobs, Nepali job search, Nepali foreign employment"
+          }
+        />
         <meta name="author" content="Gulf Visa Service" />
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
         <meta name="geo.region" content="AE;SA;QA;OM;KW;BH" />
@@ -206,7 +224,7 @@ export default function AvailableJobsPage() {
         <link rel="canonical" href="https://gulfvisaservice.com/jobs" />
         <link rel="sitemap" href="https://gulfvisaservice.com/sitemap.xml" type="application/xml" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="preload" href="https://gulfvisaservice.com/images/gulf-jobs-banner.jpg" as="image" />
+        <link rel="preload" href="https://gulfvisaservice.com/logoWeb.jpg" as="image" />
         <link rel="dns-prefetch" href="https://gulfvisaservice.com" />
         <script type="application/ld+json">
           {JSON.stringify({
@@ -228,10 +246,10 @@ export default function AvailableJobsPage() {
             "@type": "Organization",
             "name": "Gulf Visa Service",
             "url": "https://gulfvisaservice.com",
-            "logo": "https://gulfvisaservice.com/images/logo.png",
+            "logo": "https://gulfvisaservice.com/logoWeb.jpg",
             "contactPoint": {
               "@type": "ContactPoint",
-              "telephone": "+977-123-456-7890",
+              "telephone": "+977-9708001462",
               "contactType": "Customer Service",
               "areaServed": ["NP", "AE", "SA", "QA", "OM", "KW", "BH"],
               "availableLanguage": ["English", "Nepali", "Hindi", "Arabic"]
@@ -276,45 +294,54 @@ export default function AvailableJobsPage() {
                 }
               },
               "qualifications": job.requirements.items.join(", "),
-              "experienceRequirements": job.experience
+              "experienceRequirements": job.experience,
+              "applicantLocationRequirements": {
+                "@type": "Country",
+                "name": "Nepal"
+              },
+              "jobBenefits": job.benefits.items.join(", "),
+              "incentiveCompensation": "Visa support, accommodation, travel allowance",
+              "educationRequirements": "See job details",
+              "skills": job.requirements.items.join(", "),
+              "responsibilities": job.description,
+              "workHours": "Full Time"
             })}
           </script>
-          
         ))}
         <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "How can Nepali workers apply for Gulf jobs?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Simply search for your desired job, click 'Apply Now', and fill out the application form. Our team will guide you through the visa process."
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How can Nepali workers apply for Gulf jobs?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Simply search for your desired job, click 'Apply Now', and fill out the application form. Our team will guide you through the visa process."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Are these Gulf jobs verified and legal?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, all jobs listed are verified and come with proper visa support for Nepali workers."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Which Gulf countries are hiring Nepali workers in 2025?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "UAE, Qatar, Saudi Arabia, Oman, Kuwait, and Bahrain are actively hiring Nepali workers for various sectors."
+                }
               }
-            },
-            {
-              "@type": "Question",
-              "name": "Are these Gulf jobs verified and legal?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes, all jobs listed are verified and come with proper visa support for Nepali workers."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Which Gulf countries are hiring Nepali workers in 2025?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "UAE, Qatar, Saudi Arabia, Oman, Kuwait, and Bahrain are actively hiring Nepali workers for various sectors."
-              }
-            }
-          ]
-        })}
-      </script>
+            ]
+          })}
+        </script>
       </Head>
-          
+
       <Header />
 
       {/* Hero Section with page blue color */}
