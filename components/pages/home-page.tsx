@@ -223,7 +223,7 @@ export default function HomePage() {
             </Button>
             <Button
               size="lg"
-              onClick={() => window.open("https://wa.me/9708696705", "_blank")}
+              onClick={() => window.open("https://wa.me/9768919191", "_blank")}
               className="bg-green-500 hover:bg-green-600 text-white font-semibold flex items-center space-x-2 transform hover:scale-105 transition-all duration-300"
             >
               <FaWhatsapp className="h-5 w-5" />
