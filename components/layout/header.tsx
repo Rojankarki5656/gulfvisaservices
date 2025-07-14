@@ -163,7 +163,7 @@ export function Header() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <Phone className="h-4 w-4" />
-              <span>+977 9764367481</span>
+              <span>+977 9768919191</span>
             </div>
           </div>
         </div>
