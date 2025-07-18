@@ -142,8 +142,8 @@ export default function ContactPage() {
       country: '',
       city: 'Kathmandu',
       address: 'Lalitpur, Kupondole',
-      phone: '+977 9764367481',
-      email: 'gulfvisaservices.com',
+      phone: '+977 9708001462',
+      email: 'gulfvisaservice.com',
     },  
   ];
 
