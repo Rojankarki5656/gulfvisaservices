@@ -114,19 +114,19 @@ export default function ContactPage() {
     {
       icon: <Phone className="h-6 w-6 text-blue-600" />,
       title: 'Phone',
-      details: ['+977 9764367481', '+966 11 234 5678'],
+      details: ['+977 9764367481', '+977 9708001462'],
       description: 'Call us anytime for immediate assistance',
     },
     {
       icon: <Mail className="h-6 w-6 text-green-600" />,
       title: 'Email',
-      details: ['info@gulfvisaservices.com', 'jobs@gulfvisaservices.com'],
+      details: ['jobsdemand00@gmail.com', 'bestdemand@gmail.com'],
       description: 'Send us your queries and job applications',
     },
     {
       icon: <MapPin className="h-6 w-6 text-red-600" />,
       title: 'Office Locations',
-      details: ['Dubai, UAE', 'Riyadh, Saudi Arabia', 'Doha, Qatar'],
+      details: ['Kathmandu, Lalitpur, Kupondole'],
       description: 'Visit our offices for in-person consultation',
     },
     {
@@ -144,7 +144,7 @@ export default function ContactPage() {
       address: 'Lalitpur, Kupondole',
       phone: '+977 9764367481',
       email: 'gulfvisaservices.com',
-    },
+    },  
   ];
 
   return (
