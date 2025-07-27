@@ -13,7 +13,7 @@ export function Footer() {
     "Oman Visa Services",
   ]
 
-  const visaTypes = ["Tourist Visa", "Business Visa", "Work Visa", "Transit Visa", "Family Visa", "Student Visa"]
+  const visaTypes = ["Work Visa", "Transit Visa"]
 
   const quickLinks = [
     "About Us",
@@ -62,15 +62,19 @@ export function Footer() {
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm">
                   <Phone className="h-4 w-4 text-blue-400" />
-                  <span>+971 4 123 4567</span>
+                  <span>+977 9708001462</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <Phone className="h-4 w-4 text-blue-400" />
+                  <span>+977 9768919191</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <Mail className="h-4 w-4 text-blue-400" />
-                  <span>info@gulfvisaservices.com</span>
+                  <span>gulfvisaservice.com</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <MapPin className="h-4 w-4 text-blue-400" />
-                  <span>Dubai, UAE</span>
+                  <span>Kathmandu, Nepal</span>
                 </div>
               </div>
             </div>

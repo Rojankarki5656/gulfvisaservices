@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     siteName: "Gulf Visa Services",
     images: [
       {
-        url: "https://www.gulfvisaservice.com/images/uae-visa-banner.jpg",
+        url: "https://www.gulfvisaservice.com/logoWeb.jpg",
         width: 1200,
         height: 630,
         alt: "Gulf Visa Services - UAE Visa Assistance"
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Gulf Visa Services - UAE Visa Assistance | गल्फ भिसा सेवाहरू",
     description: "Fast, reliable UAE visa services for tourists, business, and work. Apply now! युएई भिसा सेवाहरू - द्रुत र सजिलो।",
-    images: ["https://www.gulfvisaservice.com/images/uae-visa-banner.jpg"]
+    images: ["https://www.gulfvisaservice.com/logoWeb.jpg"]
   },
   alternates: {
     languages: {
