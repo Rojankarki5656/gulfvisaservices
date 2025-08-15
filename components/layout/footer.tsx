@@ -62,19 +62,23 @@ export function Footer() {
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm">
                   <Phone className="h-4 w-4 text-blue-400" />
-                  <span>+977 9708001462</span>
+                  <a href="tel:+9779708001462" className="hover:underline">
+                    +977 9708001462
+                  </a>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <Phone className="h-4 w-4 text-blue-400" />
-                  <span>+977 9768919191</span>
+                  <a href="tel:+9779768919191" className="hover:underline">
+                    +977 9768919191
+                  </a>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <Mail className="h-4 w-4 text-blue-400" />
-                  <span>gulfvisaservice.com</span>
+                  <span>bestdemands@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <MapPin className="h-4 w-4 text-blue-400" />
-                  <span>Kathmandu, Nepal</span>
+                  <span>Kathmandu, Lalitpur, Kupondole</span>
                 </div>
               </div>
             </div>

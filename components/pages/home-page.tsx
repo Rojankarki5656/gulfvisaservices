@@ -1,10 +1,11 @@
 "use client"
+import Head from "next/head"
 import { supabase } from "@/lib/supabase"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Globe, Clock, Shield, Star, ArrowRight, Plane, Users } from 'lucide-react'
+import { Globe, Clock, Shield, Star, ArrowRight, Plane, Users, MessageSquare } from 'lucide-react'
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
@@ -168,26 +169,27 @@ export default function HomePage() {
 
   const features = [
     {
-      icon: <Clock className="h-8 w-8 text-homeBlue-600" />,
-      title: "Fast Processing",
-      description: "Get your visa processed in 24-48 hours with our express service",
+      icon: <Users className="h-8 w-8 text-yellow-600" />,
+      title: "५०,०००+ नेपाली कामदार",
+      description: "Over 50,000 Nepali workers successfully placed in Gulf countries",
     },
     {
       icon: <Shield className="h-8 w-8 text-green-600" />,
-      title: "100% Secure",
-      description: "Your documents and personal information are completely secure",
+      title: "मान्यता प्राप्त र दर्ता भएको सेवा",
+      description: "Approved & registered manpower service you can trust",
     },
     {
-      icon: <Globe className="h-8 w-8 text-purple-600" />,
-      title: "All Gulf Countries",
-      description: "We process visas for all 6 Gulf Cooperation Council countries",
+      icon: <CheckCircle className="h-8 w-8 text-blue-600" />,
+      title: "पारदर्शी प्रक्रिया",
+      description: "Transparent process with no hidden fees",
     },
     {
-      icon: <Users className="h-8 w-8 text-orange-600" />,
-      title: "Expert Support",
-      description: "24/7 customer support from visa processing experts",
+      icon: <MessageSquare className="h-8 w-8 text-orange-600" />,
+      title: "निःशुल्क परामर्श",
+      description: "Free job counseling in Nepali language",
     },
-  ]
+  ];
+
 
   const stats = [
     { number: "50,000+", label: "Visas Processed" },
@@ -198,6 +200,102 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-homeBlue-50 to-white">
+      <Head>
+        {/* Primary Meta Tags */}
+        <title>
+          Gulf Visa Services | Nepali Gulf Jobs 2025 | UAE, Qatar, Saudi Arabia, Oman, Kuwait, Bahrain | Apply for Verified Jobs with Visa Support | UAE jobs for nepali | Nepali jobs in UAE | Dubai ko lagi jobs | Qatar ko lagi Jobs
+        </title>
+        <meta
+          name="description"
+          content="Gulf Visa Services is Nepal's trusted platform for overseas job placement in Gulf countries. Apply now for 2025 jobs in UAE, Qatar, Saudi Arabia, Oman, Kuwait, and Bahrain. 100% secure visa process, fast approvals, transparent fees, and verified manpower services. Find jobs in construction, hospitality, security, driving, oil & gas, domestic work, and more with free Nepali job counseling."
+        />
+        <meta
+          name="keywords"
+          content="Gulf jobs for Nepali 2025, Nepali jobs in UAE 2025, Qatar jobs for Nepali 2025, Saudi Arabia jobs for Nepali 2025, Oman jobs for Nepali 2025, Kuwait jobs for Nepali 2025, Bahrain jobs for Nepali 2025, Gulf job vacancies 2025, Nepali manpower agency, Gulf visa service Nepal, Nepali overseas jobs, foreign employment Nepal, Nepali gulf jobs, Nepali job search, Nepali foreign employment, Nepali abroad jobs, Nepali driver jobs Gulf, Nepali security guard jobs Gulf, Nepali hotel jobs Gulf, Nepali domestic helper jobs Gulf, Nepali oil and gas jobs Gulf, Nepali construction jobs Gulf, Nepali skilled jobs Gulf, Nepali unskilled jobs Gulf"
+        />
+        <meta name="author" content="Gulf Visa Service Nepal" />
+        <meta
+          name="robots"
+          content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        />
+        <meta name="geo.region" content="NP" />
+        <meta name="geo.placename" content="Nepal" />
+        <meta name="geo.position" content="27.7172;85.3240" />
+        <meta name="ICBM" content="27.7172, 85.3240" />
+
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="Gulf Visa Services | Nepali Gulf Jobs 2025 with Visa Sponsorship" />
+        <meta
+          property="og:description"
+          content="Nepal's #1 trusted visa service for Gulf jobs. 50,000+ Nepalis successfully placed in UAE, Qatar, Saudi Arabia, Oman, Kuwait, and Bahrain. Apply today for construction, security, hotel, driver, and domestic helper jobs with 100% secure visa processing."
+        />
+        <meta property="og:image" content="https://gulfvisaservice.com/images/gulf-jobs-banner.jpg" />
+        <meta property="og:image:secure_url" content="https://gulfvisaservice.com/images/gulf-jobs-banner.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Nepali Gulf jobs 2025 banner with UAE, Qatar, Saudi Arabia, Oman, Kuwait, Bahrain flags" />
+        <meta property="og:url" content="https://gulfvisaservice.com" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Gulf Visa Service Nepal" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:locale:alternate" content="ne_NP" />
+
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Gulf Visa Services | Nepali Jobs in Gulf 2025" />
+        <meta
+          name="twitter:description"
+          content="Find and apply for verified Gulf job openings in UAE, Qatar, Oman, Bahrain, Kuwait, and Saudi Arabia. Trusted Nepali manpower agency with fast visa processing, free job counseling, and transparent process."
+        />
+        <meta name="twitter:image" content="https://gulfvisaservice.com/images/gulf-jobs-twitter-card.jpg" />
+        <meta name="twitter:site" content="@GulfVisaService" />
+
+        {/* Additional SEO Enhancements */}
+        <link rel="canonical" href="https://gulfvisaservice.com" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+
+        {/* Preload & Prefetch */}
+        <link rel="preload" href="https://gulfvisaservice.com/logoWeb.jpg" as="image" />
+        <link rel="dns-prefetch" href="https://gulfvisaservice.com" />
+        <link rel="preconnect" href="https://gulfvisaservice.com" crossOrigin="" />
+
+        {/* Schema Markup for Rich Results */}
+        <script type="application/ld+json">
+          {`
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Gulf Visa Service Nepal",
+        "url": "https://gulfvisaservice.com",
+        "logo": "https://gulfvisaservice.com/logoWeb.jpg",
+        "description": "Trusted Gulf job and visa processing service in Nepal with a 98% success rate. Over 50,000 Nepali workers placed in UAE, Qatar, Saudi Arabia, Oman, Kuwait, and Bahrain.",
+        "foundingDate": "2010",
+        "founders": [
+          { "@type": "Person", "name": "Gulf Visa Service Team" }
+        ],
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "telephone": "+977-9800000000",
+            "contactType": "Customer Service",
+            "areaServed": ["NP", "AE", "QA", "SA", "OM", "KW", "BH"],
+            "availableLanguage": ["Nepali", "English"]
+          }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/GulfVisaService",
+          "https://www.instagram.com/GulfVisaService",
+          "https://twitter.com/GulfVisaService"
+        ]
+      }
+    `}
+        </script>
+      </Head>
+
       <Header />
 
       {/* Hero Section - Using home blue color */}
@@ -207,11 +305,11 @@ export default function HomePage() {
             Trusted by 50,000+ Travelers
           </Badge>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-slide-in-left">
-            Your Journey to Global
-            <span className="block text-yellow-300">Opportunities Starts Here</span>
+            From Nepal to the Gulf
+            <span className="block text-yellow-300">Your Gateway to Secure Jobs Abroad</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-homeBlue-100 max-w-3xl mx-auto animate-fade-in-up delay-300">
-            We provide trusted visa services with a 98% success rate, connecting you to international job opportunities with complete confidence.
+            Helping thousands of Nepalis work in the Gulf with a 98% success rate Fast, Affordable, and Reliable Visa Services.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-500">
             <Button
@@ -457,15 +555,15 @@ export default function HomePage() {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-3">
-                        <Button
-                          asChild
-                          className="flex-1 bg-pageBlue-600 hover:bg-pageBlue-700 text-white-500 transform hover:scale-105 transition-all duration-300"
-                        >
-                          <Link href={`/jobs/${job.id}`}>
-                            <Eye className="mr-2 h-4 w-4" />
-                            View Details
-                          </Link>
-                        </Button>
+                      <Button
+                        asChild
+                        className="flex-1 bg-pageBlue-600 hover:bg-pageBlue-700 text-white-500 transform hover:scale-105 transition-all duration-300"
+                      >
+                        <Link href={`/jobs/${job.id}`}>
+                          <Eye className="mr-2 h-4 w-4" />
+                          View Details
+                        </Link>
+                      </Button>
                       <Button
                         variant="outline"
                         className="flex-1 hover:bg-pageBlue-50 transform hover:scale-105 transition-all duration-300"
@@ -686,23 +784,24 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                name: "Ahmed Al-Rashid",
+                name: "Ramesh Thapa",
                 country: "UAE",
-                text: "Excellent service! Got my UAE visa in just 2 days. Highly recommended for anyone planning to visit Dubai.",
+                text: "उत्तम सेवा! मैले केवल 5 दिनमै UAE भिसा पाएँ। दुबई जान चाहने सबैलाई सिफारिस गर्छु।",
                 rating: 5,
               },
               {
-                name: "Sarah Johnson",
+                name: "Sita Gurung",
                 country: "Qatar",
-                text: "Professional and efficient. The team guided me through every step of the Qatar visa process.",
+                text: "व्यावसायिक र छरितो सेवा। कतार भिसा प्रक्रियाको हरेक चरणमा मार्गदर्शन पाएँ।",
                 rating: 5,
               },
               {
-                name: "Mohammed Hassan",
+                name: "Krishna Magar",
                 country: "Saudi Arabia",
-                text: "Fast and reliable service for Saudi visa. Great customer support and transparent pricing.",
+                text: "साउदी भिसाका लागि छिटो र भरपर्दो सेवा। उत्कृष्ट ग्राहक समर्थन र पारदर्शी मूल्य।",
                 rating: 5,
               },
+
             ].map((testimonial, index) => (
               <Card
                 key={index}

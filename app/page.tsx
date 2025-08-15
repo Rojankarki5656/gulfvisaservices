@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   description:
     "Gulf Visa Services offers expert visa processing for UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, and Oman. Fast, reliable, and hassle-free tourist, business, and work visas. UAE भिसा सेवाहरू - द्रुत र विश्वसनीय।",
   keywords: [
+    "Jobs for Nepali",
+    "Nepali jobs in Gulf",
     "Gulf visa",
     "UAE visa",
     "Dubai visa",
@@ -41,7 +43,7 @@ export const metadata: Metadata = {
         url: "https://www.gulfvisaservice.com/logoWeb.jpg",
         width: 1200,
         height: 630,
-        alt: "Gulf Visa Services - UAE Visa Assistance"
+        alt: "Gulf Visa Services - Gulf Visa Assistance"
       }
     ]
   },
